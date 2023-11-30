@@ -33,11 +33,11 @@ const password = args[1] || 'defaultPassword';
   await page.click('[class="gnb-txt-movie"]');
   await page.waitForTimeout(2000); 
   
-  // URL 스크린샷
-  await page.screenshot({ path: "./Docs/abc.png" });
+  // URL 스크린샷으로 result 폴더에 저장
+  await page.screenshot({ path: "./result/abc.png" });
 
-  // URL을 pdf 파일로 Docs 폴더에 저장
-  await page.pdf({ path: "./Docs/abc.pdf", format: "A4" });
+  // URL을 pdf 파일로 result 폴더에 저장
+  await page.pdf({ path: "./result/abc.pdf", format: "A4" });
   
   await browser.close();
 })();
