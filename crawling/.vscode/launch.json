@@ -1,0 +1,21 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{	
+			"type": "node",
+			"request": "launch",
+			"name": "Launch Program",
+			"console": "integratedTerminal",
+			"program": "${workspaceFolder}/node_modules/serverless/bin/serverless.js",
+			"runtimeExecutable": "/opt/homebrew/opt/node@20/bin/node",
+			"args": [
+				"invoke",
+				"local",
+				"-f",
+				"tester",
+				"--aws-profile",
+				"test"
+			],
+		}
+	]
+}
