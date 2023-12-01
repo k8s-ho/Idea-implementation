@@ -1,0 +1,12 @@
+service: ui-test
+provider:
+  name: aws
+  runtime: nodejs20.x
+  memorySize: 512
+  timeout: 30
+  region: ap-northeast-2
+  environment:
+    PhoneNumber: "821011112222"
+functions:
+  tester:
+    handler: src/lambda/movie.handler
