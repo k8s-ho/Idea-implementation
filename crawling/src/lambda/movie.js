@@ -19,16 +19,18 @@ const moment = require('moment');
 module.exports = {
     handler: async () => {    
         // debug 용
-        //var credentials = new AWS.SharedIniFileCredentials({ profile: "test" });
-        //AWS.config.credentials = credentials;
-    
+        //var credentials = new AWS.SharedIniFileCredentials({ profile: "test" }); // debug시 주석 삭제
+        //AWS.config.credentials = credentials; // debug시 주석 삭제
+        let browser = null; // debug시 주석처리
+        
         var docClient = new AWS.DynamoDB.DocumentClient();
+
     
         try {
             const browser = await puppeteer.launch({
                 args: chromium.args,
                 defaultViewport: chromium.defaultViewport,
-                executablePath: await chromium.executablePath(), // debug시 executablePath() 사용
+                executablePath: await chromium.executablePath(), // debug시 executablePath로 사용
                 headless: chromium.headless,
                 ignoreHTTPSErrors: true,
             });
@@ -73,7 +75,7 @@ module.exports = {
             // 기존에 저장된 1위 영화가 있는 경우 가져다 사용함
             let movie; // null 대신 아무값이나 넣어놓음
             const exist_movie = await docClient.query(params).promise();
-            //console.log(exist_movie);
+            console.log(exist_movie);
             
             if (exist_movie.Count === 0 || (Array.isArray(exist_movie.Items) && exist_movie.Items.length > 0 && exist_movie.Items[0].movie.trim() === '')) {
                 console.log("[?] 기존 DB에 데이터가 없습니다.");
@@ -84,9 +86,9 @@ module.exports = {
               }
         
             let chg_check = (movie != top_movie); // 변동 체크
-            //console.log(chg_check);
+            console.log(chg_check);
             let comp_last_movie = (movie === top_movie) ? movie : top_movie; // 변동이 존재하는 경우 1위영화 교체
-            //console.log(comp_last_movie);
+            console.log(comp_last_movie);
             // 변동 확인 로직
             if (chg_check) {
                 comp_last_movie = top_movie;
