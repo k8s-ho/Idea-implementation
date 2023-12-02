@@ -73,7 +73,7 @@ module.exports = {
             };
 
             // 기존에 저장된 1위 영화가 있는 경우 가져다 사용함
-            let movie; // null 대신 아무값이나 넣어놓음
+            let movie; 
             const exist_movie = await docClient.query(params).promise();
             console.log(exist_movie);
             
@@ -93,11 +93,16 @@ module.exports = {
             if (chg_check) {
                 comp_last_movie = top_movie;
                 console.log("[!] 순위 변동이 탐지되었습니다.");
+                // 시간넣기
+                var currentDate = new Date();
+                var formattedDate = currentDate.toLocaleString(); 
+
                 let sns = new AWS.SNS({ apiVersion: '2010-03-31', region: "us-east-1" });
                 var params = {
-                    Message: `[!] 영화 순위에 변동이 탐지 [!] \n\n현재 예매 1위 영화는 "${comp_last_movie}"입니다.`,
+                    Message: `${formattedDate} 기준\n\n[!] 영화 순위에 변동이 탐지 [!]\n\n현재 예매 1위 영화는 "${comp_last_movie}"입니다.`,
                     PhoneNumber: process.env.PhoneNumber || "DEFAULT_PHONE_NUMBER",
                 };
+                console.log("[+] 문자를 전송하였습니다.")
                 try {
                     let result = await sns.publish(params).promise();
                     console.log(result);
