@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "moment": "^2.29.4",
+    "n": "^9.2.0",
+    "puppeteer": "^21.5.2",
+    "serverless": "^3.38.0"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^106.0.2",
+    "serverless-cloudformation-sub-variables": "^0.2.1",
+    "serverless-deployment-bucket": "^1.6.0",
+    "serverless-plugin-aws-alerts": "^1.7.5",
+    "serverless-plugin-split-stacks": "^1.13.0"
+  }
+}
