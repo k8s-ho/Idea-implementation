@@ -23,13 +23,12 @@ module.exports = {
         //AWS.config.credentials = credentials;
     
         var docClient = new AWS.DynamoDB.DocumentClient();
-        //let browser = null;
     
         try {
             const browser = await puppeteer.launch({
                 args: chromium.args,
                 defaultViewport: chromium.defaultViewport,
-                executablePath: await chromium.executablePath(),
+                executablePath: await chromium.executablePath(), // debug시 executablePath() 사용
                 headless: chromium.headless,
                 ignoreHTTPSErrors: true,
             });
@@ -70,22 +69,27 @@ module.exports = {
                     ':hkey': "top_movie"
                 }
             };
-    
+
             // 기존에 저장된 1위 영화가 있는 경우 가져다 사용함
+            let movie; // null 대신 아무값이나 넣어놓음
             const exist_movie = await docClient.query(params).promise();
-            let movie = "abc123none"; // 아무값이나 넣어놓음
-            if (exist_movie.Items && exist_movie.Items.length === 0) {
+            //console.log(exist_movie);
+            
+            if (exist_movie.Count === 0 || (Array.isArray(exist_movie.Items) && exist_movie.Items.length > 0 && exist_movie.Items[0].movie.trim() === '')) {
                 console.log("[?] 기존 DB에 데이터가 없습니다.");
+                movie = "abc123none"; // null 대신 넣어놓음
               } else {
                 console.log("[+] 기존 DB에 데이터가 존재하므로 불러옵니다.");
                 movie = exist_movie.Items[0].movie;
               }
         
             let chg_check = (movie != top_movie); // 변동 체크
-            let comp_last_movie = (movie == top_movie) ? movie : top_movie; // 변동이 존재하는 경우 1위영화 교체
-    
+            //console.log(chg_check);
+            let comp_last_movie = (movie === top_movie) ? movie : top_movie; // 변동이 존재하는 경우 1위영화 교체
+            //console.log(comp_last_movie);
             // 변동 확인 로직
             if (chg_check) {
+                comp_last_movie = top_movie;
                 console.log("[!] 순위 변동이 탐지되었습니다.");
                 let sns = new AWS.SNS({ apiVersion: '2010-03-31', region: "us-east-1" });
                 var params = {
@@ -135,7 +139,7 @@ module.exports = {
             // await page.screenshot({ path: "./result/abc.png" });
             // // URL을 pdf 파일로 result 폴더에 저장
             // await page.pdf({ path: "./result/abc.pdf", format: "A4" });
-            //await browser.close();
+            // await browser.close();
             
         } catch (error) {
             console.log(error);
