@@ -83,10 +83,11 @@ module.exports = {
               } else {
                 console.log("[+] 기존 DB에 데이터가 존재하므로 불러옵니다.");
                 movie = exist_movie.Items[0].movie;
+                console.log("[DB에 저장되어있는 영화]:",movie);
               }
-        
-            let chg_check = (movie != top_movie); // 변동 체크
-            console.log(chg_check);
+            console.log("[top_movie]:",top_movie);
+            let chg_check = (movie !== top_movie); // 변동 체크
+            console.log("[?]변동여부:", chg_check);
             let comp_last_movie = (movie === top_movie) ? movie : top_movie; // 변동이 존재하는 경우 1위영화 교체
             console.log(comp_last_movie);
             // 변동 확인 로직
@@ -146,18 +147,11 @@ module.exports = {
             // await page.screenshot({ path: "./result/abc.png" });
             // // URL을 pdf 파일로 result 폴더에 저장
             // await page.pdf({ path: "./result/abc.pdf", format: "A4" });
-            // await browser.close();
+            await browser.close();
             
         } catch (error) {
             console.log(error);
         } 
-        finally {
-            if (browser !== null) {
-                let pages = await browser.pages()
-                await Promise.all(pages.map(page => page.close()))
-                await browser.close();
-            }
-        }
         return "ok"
     },
 };
