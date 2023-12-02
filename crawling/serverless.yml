@@ -1,7 +1,7 @@
 service: ui-test
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs18.x
   memorySize: 512
   timeout: 30
   region: ap-northeast-2
