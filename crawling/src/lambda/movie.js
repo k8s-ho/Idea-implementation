@@ -101,7 +101,7 @@ module.exports = {
                 let sns = new AWS.SNS({ apiVersion: '2010-03-31', region: "us-east-1" });
                 var params = {
                     Message: `${formattedDate} 기준\n\n[!] 영화 순위에 변동이 탐지 [!]\n\n현재 예매 1위 영화는 "${comp_last_movie}"입니다.`,
-                    PhoneNumber: process.env.PhoneNumber || "DEFAULT_PHONE_NUMBER",
+                    PhoneNumber: process.env.PhoneNumber,
                 };
                 console.log("[+] 문자를 전송하였습니다.")
                 try {
