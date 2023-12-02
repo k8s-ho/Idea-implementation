@@ -2,7 +2,6 @@ service: demo-serverless-movie-alarm
 app: demo-serverless-movie-alarm
 package:
   patterns:
-    - '!node_modules/chrome-aws-lambda/**'
     - '!node_modules/puppeteer/.local-chromium/**'
 provider:
   name: aws
