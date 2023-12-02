@@ -6,7 +6,7 @@ package:
     - '!node_modules/puppeteer/.local-chromium/**'
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs18.x
   iam:
     role: DefaultRole
   endpointType: REGIONAL
