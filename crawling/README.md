@@ -5,6 +5,7 @@ AWS Lambda를 통해 SNS 알림을 보냅니다.
 ### Usage
 ```bash
 git clone https://github.com/k8s-ho/Idea-implementation
+cd Idea-implementation/crawling/
 npm install
 serverless deploy -c serverless.yaml --aws-profile [your profile]
 ```
