@@ -32,7 +32,7 @@ def start_proxy(proxy_port, server_ip, server_port):
         client_handler.start()
 
 if __name__ == "__main__":
-    proxy_port = 80
+    proxy_port = 7777
 
     server_ip = input("Enter the server IP: ")
     server_port = int(input("Enter the server port: "))
