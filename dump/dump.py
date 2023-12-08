@@ -39,7 +39,7 @@ def packet_callback(packet, src_filter, dst_filter, interface):
             payload = packet[Raw].load.decode('utf-8', errors='ignore')
 
         print("[+] Packet Detected:")
-        print(f"    [{proto}] {src_ip}:{src_port} -> {dst_ip}:{dst_port}\n")
+        print(f"[{proto}] {src_ip}:{src_port} -> {dst_ip}:{dst_port}\n")
         print(payload)
         print("=" * 50)
 
