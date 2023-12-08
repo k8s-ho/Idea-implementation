@@ -8,5 +8,5 @@
 git clone https://github.com/k8s-ho/idea-implementation
 cd idea-implementation/dump/
 pip3 install -r requirements.txt
-python dump.py 
+python3 dump.py 
 ```
